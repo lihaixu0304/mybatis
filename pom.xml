@@ -3,8 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>com.mybatis</groupId>
   <artifactId>mybatis</artifactId>
-  <packaging>jar</packaging>
-  <version>1.0-SNAPSHOT</version>
+  <packaging>pom</packaging>
+    <modules>
+        <module>mybatis-crud1</module>
+    </modules>
+    <version>1.0-SNAPSHOT</version>
   <name>mybatis Maven Webapp</name>
   <url>http://maven.apache.org</url>
   <dependencies>
