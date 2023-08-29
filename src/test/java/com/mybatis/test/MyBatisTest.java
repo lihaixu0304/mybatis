@@ -1,7 +1,9 @@
 package com.mybatis.test;
 
+import com.mybatis.mapper.CarMapper;
 import com.mybatis.pojo.Car;
 import com.mybatis.utils.MyBatisUtil;
+import com.mybatis.utils.SqlSessionUtil;
 import org.apache.ibatis.io.Resources;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
@@ -94,5 +96,13 @@ public class MyBatisTest {
         int updateCar = sqlSession1.update("updateCar");
         System.out.println("更新记录数为："+updateCar);
         sqlSession.close();
+    }
+    
+    @Test
+    public void testSelectByCarType(){
+        CarMapper mapper = SqlSessionUtil.openSession().getMapper(CarMapper.class);
+        List<Car> cars = mapper.selectByCarType("燃油车");
+        cars.forEach(car -> System.out.println(car));
+
     }
 }

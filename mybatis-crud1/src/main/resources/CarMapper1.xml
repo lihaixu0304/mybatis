@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mybatis.mapper.CarMapper">
+
+
+
+    <!--
+    根据汽车类型查询汽车信息
+    #{}的使用，作为占位符使用
+    -->
+    <select id="selectByCarType" resultType="com.mybatis.pojo.Car">
+        select id,
+                car_num as carNum,
+                brand,
+                guide_price as guidePrice,
+                produce_time as produceTime,
+                car_type as carType
+        from
+            t_car
+        where car_type = #{carType};
+    </select>
+
+    <!--
+    根据汽车编号查询汽车信息
+    ${}的使用，使用必须加单引号
+    -->
+    <select id="selectByCarNum" resultType="com.mybatis.pojo.Car">
+        select id,
+               car_num as carNum,
+               brand ,
+               guide_price as guidePrice,
+               produce_time as produceTime,
+               car_type as carType
+        from
+            t_car
+        where car_num = '${carNum}';
+    </select>
+
+    <!--
+    在SQL语句中使用关键字，asc,desc,必须使用${}
+    -->
+
+    <select id="selectByGuidePrice" resultType="com.mybatis.pojo.Car">
+        select id,
+               car_num as carNum,
+               brand,
+               guide_price as guidePrice,
+               produce_time as produceTime,
+               car_type as carType
+        from
+            t_car
+        order by
+            guidePrice ${ascKey}
+
+    </select>
+</mapper>
