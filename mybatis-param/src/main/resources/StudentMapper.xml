@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这是mybatis映射文件-->
+<!--注意，mapper标签中的namespace值要与mapper接口所在路径保持一致-->
+<mapper namespace="com.mybatis.mapper.StudentMapper">
+    
+    <!--根据id查询学生信息-->
+    <select id="selectById" resultType="com.mybatis.pojo.Student">
+        select id,name,age,height,birth,sex from t_student where id = #{id};
+    </select>
+
+    <!--根据生日查询个人信息-->
+    <select id="selectByBirth" resultType="com.mybatis.pojo.Student">
+        select id,name,age,height,birth,sex from t_student where birth = #{birth};
+    </select>
+
+    <!--根据sex查询个人-->
+    <select id="selectBySex" resultType="com.mybatis.pojo.Student">
+        select id,name,age,height,birth,sex from t_student where sex = #{sex};
+    </select>
+    <!--根据姓名查询个人信息-->
+    <select id="selectByName" resultType="com.mybatis.pojo.Student">
+        select id,name,age,height,birth,sex from t_student where name = #{name};
+    </select>
+    <!--模糊查询，李姓人员信息-->
+    <select id="selectByLikeName" resultType="com.mybatis.pojo.Student">
+        select id,name,age,height,birth,sex from t_student where name like #{name}"%";
+    </select>
+
+    <!--多参数查询-->
+    <select id="selectByidAndSex" resultType="com.mybatis.pojo.Student">
+        select  * from t_student where id = #{arg0} and sex = #{arg1};
+    </select>
+
+    <!--注解形式的参数查询@Param-->
+    <select id="selectByNameAndAge" resultType="com.mybatis.pojo.Student">
+        select * from t_student where name = #{name} and sex = #{sex};
+    </select>
+</mapper>
