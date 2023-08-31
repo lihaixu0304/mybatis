@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这是mybatis映射文件-->
+<!--注意，mapper标签中的namespace值要与mapper接口所在路径保持一致-->
+<mapper namespace="com.mybatis.mapper.CarMapper">
+       <!--resultMap结果集映射，配置字段属性-->
+       <!--<resultMap id="carResultMap" type="com.mybatis.pojo.Car" >
+              <id property="id" column="id"/>
+              <result property="carNum" column="car_num" javaType="String" jdbcType="VARCHAR"/>
+              <result property="brand" column="brand" javaType="String" jdbcType="VARCHAR"/>
+              <result property="guidePrice" column="guide_price" javaType="Double" jdbcType="DECIMAL"/>
+              <result property="produceTime" column="produce_time" javaType="String" jdbcType="CHAR"/>
+              <result property="carType" column="car_type" javaType="String" jdbcType="VARCHAR"/>
+       </resultMap>
+       <select id="selectResultMap" resultMap="carResultMap" resultType="com.mybatis.pojo.Car">
+              select id ,carNum,brand,guidePrice,produceTime,carType from t_car;
+       </select>-->
+       <!--查询所有汽车信息，返回map集合-->
+<select id="selectAllMap" resultType="map">
+    select id,
+           car_num as carNum,
+           brand,
+           guide_price as guidePrice,
+           produce_time as produceTime,
+           car_type as carType
+           from t_car;
+</select>
+       <!--查询所有的汽车信息，返回list集合,存储在map集合-->
+       <select id="selectAllList" resultType="map">
+              select id ,
+                     car_num as carNum,
+                     brand ,
+                     guide_price as guidePrice,
+                     produce_time as produceTime,
+                     car_type as carType
+              from t_car;
+       </select>
+</mapper>

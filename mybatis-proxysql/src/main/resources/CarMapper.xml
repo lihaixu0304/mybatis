@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--这是mybatis映射文件-->
+<!--注意，mapper标签中的namespace值要与mapper接口所在路径保持一致-->
+<mapper namespace="com.mybatisproxy.mapper.CarMapper">
+<!--动态SQL之if标签，适用于多条件查询-->
+    <select id="selectByIf" resultType="com.mybatisproxy.pojo.Car">
+        select id,
+               car_num as carNum,
+               brand,
+               guide_price as guidePrice,
+               produce_time as produceTime,
+               car_type as carType
+        from
+            t_car
+        where 1=1
+            <if test="brand != null and brand != ''">
+                and brand like #{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                and guide_price >= #{guidePrice}
+            </if>
+            <if test="carType != null and carType != ''">
+                and car_type = #{carType}
+            </if>
+    </select>
+
+    <!--动态SQL之where标签，让where后面的子句更加灵活,当where后面的子句条件都为空时，where后免得参数被省略-->
+    <select id="selectByWhere" resultType="com.mybatisproxy.pojo.Car">
+        select id,
+               car_num as carNum,
+               brand,
+               guide_price as guidePrice,
+               produce_time as produceTime,
+               car_type as carType
+        from t_car
+        <where>
+            <if test="brand != null and brand != ''">
+                and like #{brand}"%"
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                and guide_price >= #{guidePrice}
+            </if>
+            <if test="carType != null and carType != ''" >
+                 and car_type = #{carType}
+            </if>
+        </where>
+    </select>
+    <select id="selectByTrim" resultType="com.mybatisproxy.pojo.Car">
+        select id,
+               car_num as carNum,
+               brand ,
+               guide_price as guidePrice,
+               produce_time as produceTime,
+               car_type as carType
+        from
+            t_car
+        <trim prefix="where" suffixOverrides="and|or">
+            <if test="brand != null and brand != ''">
+                brand like #{brand}"%" and
+            </if>
+            <if test="guidePrice != null and guidePrice != ''">
+                guide_price >= #{guidePrice} and
+            </if>
+            <if test="carType != null and carType != ''">
+                car_type = #{carType}
+            </if>
+        </trim>
+    </select>
+</mapper>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-config.dtd">
+<!--配置标签-->
+<configuration>
+    <!--配置优先级，越靠前优先级越高，配置顺序从上往下依次配置
+(properties?,settings?,typeAliases?,
+typeHandlers?,objectFactory?,objectWrapperFactory?,
+reflectorFactory?,plugins?,environments?,
+databaseIdProvider?,mappers?)".
+-->
+    <!--引入外部jdbc.properties-->
+    <properties resource="jdbc.properties"/>
+    <!--别名配置-->
+    <typeAliases>
+        <!--引入实体类包名的方式-->
+        <package name="xxx.xxx.xxx"/>
+    </typeAliases>
+
+    <!--多环境标签-->
+    <environments default="development">
+        <environment id="development">
+            <!--事务管理器-->
+            <transactionManager type="JDBC"/>
+            <!--数据源信息-->
+            <dataSource type="POOLED">
+                <property name="driver" value="${jdbc.driver}"/>
+                <property name="url" value="${jdbc.url}"/>
+                <property name="username" value="${jdbc.username}"/>
+                <property name="password" value="${jdbc.password}"/>
+            </dataSource>
+        </environment>
+    </environments>
+    <!--引入mybatis映射文件（sql）-->
+    <mappers>
+        <mapper resource="CarMapper.xml"/>
+        <!--以包名的方式引入mybatis映射文件-->
+        <!--
+        mapper接口和映射文件所在的包必须一致
+        mapper接口的名字必须和映射文件的名字一致
+        -->
+       <!-- <package name="com.mybatis.mapper"/>-->
+    </mappers>
+</configuration>
